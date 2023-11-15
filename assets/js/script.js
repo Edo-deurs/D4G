@@ -9,11 +9,14 @@ xhr.onload = function () {
     const table = document.createElement("table");
     const thead = document.createElement("thead");
     const tbody = document.createElement("tbody");
+    const themeFilter = document.getElementById("theme-filter");
+    const stateFilter = document.getElementById("state-filter");
     const selectOptions = [
       "conforme",
       "en cours de déploiement",
       "non conforme",
       "non applicable",
+      "a definir",
     ];
     const etats = {};
 
@@ -41,56 +44,101 @@ xhr.onload = function () {
       row.appendChild(tdCritere);
       const tdEtat = document.createElement("td");
       const select = document.createElement("select");
-      select.name = "etat";
+      select.name = `select-${critere.id}`;
       selectOptions.forEach((option) => {
-        const optionElement = document.createElement("option");
-        optionElement.value = option;
-        optionElement.textContent = option;
-        select.appendChild(optionElement);
+        const optionEl = document.createElement("option");
+        optionEl.value = option;
+        optionEl.textContent = option;
+        select.appendChild(optionEl);
       });
-      select.value = etats[critere.critere] || "";
+      select.value = critere.etat;
       select.addEventListener("change", () => {
-        etats[critere.critere] = select.value;
+        etats[critere.id] = select.value;
+        updateCounters();
+        updateTable();
       });
       tdEtat.appendChild(select);
       row.appendChild(tdEtat);
       tbody.appendChild(row);
+
+      // Ajouter les options de filtre pour les thématiques
+      if (!themeFilter.querySelector(`option[value="${critere.thematique}"]`)) {
+        const themeOption = document.createElement("option");
+        themeOption.value = critere.thematique;
+        themeOption.textContent = critere.thematique;
+        themeFilter.appendChild(themeOption);
+      }
     });
 
+    // Ajouter le tableau au DOM
     table.appendChild(thead);
     table.appendChild(tbody);
+    document.getElementById("table-container").appendChild(table);
 
-    // Ajouter le tableau à la page
-    const container = document.getElementById("table-container");
-    container.appendChild(table);
+    // Mettre à jour les compteurs
+    function updateCounters() {
+      const conformeCounter = document.getElementById("conforme-counter");
+      const enCoursCounter = document.getElementById("en-cours-counter");
+      const nonConformeCounter = document.getElementById(
+        "non-conforme-counter"
+      );
+      const nonApplicableCounter = document.getElementById(
+        "non-applicable-counter"
+      );
+      const aDefinirCounter = document.getElementById("a-definir-counter");
 
-    // Ajouter les options de filtrage des thématiques
-    const selectFiltre = document.getElementById("filtre");
-    const themes = data.criteres.reduce((acc, critere) => {
-      if (!acc.includes(critere.thematique)) {
-        acc.push(critere.thematique);
-      }
-      return acc;
-    }, []);
-    themes.forEach((theme) => {
-      const optionElement = document.createElement("option");
-      optionElement.value = theme;
-      optionElement.textContent = theme;
-      selectFiltre.appendChild(optionElement);
-    });
-    selectFiltre.addEventListener("change", () => {
-      const rows = tbody.querySelectorAll("tr");
-      rows.forEach((row) => {
-        if (
-          selectFiltre.value === "" ||
-          row.children[0].textContent === selectFiltre.value
-        ) {
-          row.style.display = "";
-        } else {
-          row.style.display = "none";
-        }
+      // Compter les états
+      const etatsCount = Object.values(etats).reduce((count, etat) => {
+        count[etat] = (count[etat] || 0) + 1;
+        return count;
+      }, {});
+
+      // Mettre à jour les compteurs affichés
+      conformeCounter.textContent = etatsCount["conforme"] || 0;
+      enCoursCounter.textContent = etatsCount["en cours de déploiement"] || 0;
+      nonConformeCounter.textContent = etatsCount["non conforme"] || 0;
+      nonApplicableCounter.textContent = etatsCount["non applicable"] || 0;
+
+      // Calculer le nombre d'états à définir
+      const totalCritereCount = data.criteres.length;
+      const definedCritereCount = Object.values(etats).filter(
+        (etat) => etat !== "a definir"
+      ).length;
+      const aDefinirCount = totalCritereCount - definedCritereCount;
+      aDefinirCounter.textContent = aDefinirCount;
+    }
+
+    // Mettre à jour le tableau en fonction des filtres
+    function updateTable() {
+      tbody.querySelectorAll("tr").forEach((row) => {
+        const themeFilterValue = themeFilter.value.toLowerCase();
+        const stateFilterValue = stateFilter.value.toLowerCase();
+        const themeMatch =
+          themeFilterValue === "" ||
+          row
+            .querySelector("td:first-child")
+            .textContent.toLowerCase()
+            .includes(themeFilterValue);
+        const stateMatch =
+          stateFilterValue === "" ||
+          row
+            .querySelector("select")
+            .value.toLowerCase()
+            .includes(stateFilterValue);
+        row.style.display = themeMatch && stateMatch ? "table-row" : "none";
+      });
+    }
+
+    // Mettre à jour le tableau et les compteurs lorsque les filtres sont modifiés
+    [themeFilter, stateFilter].forEach((filter) => {
+      filter.addEventListener("change", () => {
+        updateTable();
+        updateCounters();
       });
     });
+
+    // Mettre à jour les compteurs initiaux
+    updateCounters();
   }
 };
 xhr.send();

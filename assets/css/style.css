@@ -1,31 +1,30 @@
 body {
-    margin: 0;
+  margin: 0;
 }
 header {
-    text-align: center;
-    margin: 5vh 0;
+  text-align: center;
+  margin: 5vh 0;
 }
 header h1 {
-    font-size: 2em;
-}
-.boutonFiltres {
-    position: fixed;
-    padding: 8px 20px;
-    top: 5vh;
-    right: 4vw;
-    background-color: rgb(220, 220, 220);
-    font-size: 1.5em;
-}
-main {
-    width: 75vw;
-    margin: 0 auto 0 auto;
-}
-.listeCriteres {
-    margin: 0;   
-}
-.listeCriteres p {
-    width: 60vw;
-    margin: 0 auto 1vh auto;
-    font-size: 1.2em;
+  font-size: 2em;
 }
 
+main {
+  width: 90vw;
+  margin: 0 auto 0 auto;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+}
+
+tr:not(:last-child) {
+  border-bottom: 1px solid #ddd;
+}

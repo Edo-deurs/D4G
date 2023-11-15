@@ -14,18 +14,39 @@
       <header>
         <h1>Numéro d'équipe: 22</h1>
       </header>
-      <button class="boutonFiltres">Filtres</button>
       <button id="exportButton">Exporter en PDF</button>
       <main>
         <h1>Liste des critères d'écoconception de services numériques</h1>
 
-        <label for="filtre">Filtrer par thématique:</label>
-        <select id="filtre"></select>
-        <div id="table-container"></div>
-        <label for="filtre">Filtrer par thématique :</label>
-        <select id="filtre">
-          <option value="">Toutes les thématiques</option>
-        </select>
+        <div id="table-container">
+          <div id="counter-container">
+            <p>États :</p>
+            <p>Conforme : <span id="conforme-counter">0</span></p>
+            <p>
+              En cours de déploiement : <span id="en-cours-counter">0</span>
+            </p>
+            <p>Non conforme : <span id="non-conforme-counter">0</span></p>
+            <p>Non applicable : <span id="non-applicable-counter">0</span></p>
+            <p>À définir : <span id="a-definir-counter">0</span></p>
+          </div>
+          <div id="filter-container">
+            <label for="theme-filter">Filtrer par thématique :</label>
+            <select id="theme-filter">
+              <option value="">Toutes les thématiques</option>
+            </select>
+            <label for="state-filter">Filtrer par état :</label>
+            <select id="state-filter">
+              <option value="">Tous les états</option>
+              <option value="conforme">Conforme</option>
+              <option value="en cours de déploiement">
+                En cours de déploiement
+              </option>
+              <option value="non conforme">Non conforme</option>
+              <option value="non applicable">Non applicable</option>
+              <option value="a definir">À définir</option>
+            </select>
+          </div>
+        </div>
       </main>
 
       <script src="./assets/js/script.js"></script>
