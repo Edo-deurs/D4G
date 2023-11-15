@@ -87,6 +87,7 @@ xhr.onload = function () {
       );
       const aDefinirCounter = document.getElementById("a-definir-counter");
       const scoreConformite = document.getElementById("conformity-score");
+
       // Compter les états
       const etatsCount = Object.values(etats).reduce((count, etat) => {
         count[etat] = (count[etat] || 0) + 1;
@@ -98,7 +99,6 @@ xhr.onload = function () {
       enCoursCounter.textContent = etatsCount["en cours de déploiement"] || 0;
       nonConformeCounter.textContent = etatsCount["non conforme"] || 0;
       nonApplicableCounter.textContent = etatsCount["non applicable"] || 0;
-      scoreConformite.textContent = etatsCount["score de conformité"] || 0;
 
       // Calculer le nombre d'états à définir
       const totalCritereCount = data.criteres.length;
@@ -108,9 +108,8 @@ xhr.onload = function () {
       const aDefinirCount = totalCritereCount - definedCritereCount;
       aDefinirCounter.textContent = aDefinirCount;
       const scoreConformiteCount =
-        (etatsCount["conforme"] || 0) /
-        (totalCritereCount - (etatsCount["non applicable"] || 0));
-      scoreConformite.textContent = scoreConformiteCount.toFixed(2);
+        conformeCounter / (totalCritereCount - nonApplicableCounter);
+      scoreConformite.textContent = scoreConformiteCount;
     }
 
     // Mettre à jour le tableau en fonction des filtres
