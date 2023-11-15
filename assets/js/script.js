@@ -110,7 +110,7 @@ xhr.onload = function () {
       const scoreConformiteCount =
         (etatsCount["conforme"] || 0) /
         (totalCritereCount - (etatsCount["non applicable"] || 0));
-      scoreConformite.textContent = scoreConformiteCount.toFixed(3) * 100 + "%";
+      scoreConformite.textContent = scoreConformiteCount.toFixed(2) * 100 + "%";
     }
 
     // Mettre à jour le tableau en fonction des filtres
@@ -147,7 +147,7 @@ xhr.onload = function () {
       .addEventListener("click", exportToPDF);
 
     function exportToPDF() {
-      const pdf = new jsPDF();
+      const pdf = new window.jspdf.jsPDF();
 
       // Ajouter le titre du PDF
       pdf.text(

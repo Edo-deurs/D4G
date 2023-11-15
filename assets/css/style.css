@@ -3,7 +3,7 @@
 }
 
 html {
-  background-color: rgba(75, 172, 56, 0.8);
+  background-color: rgba(16, 92, 0, 0.8);
   font-family: "Roboto", sans-serif;
 }
 body {
@@ -11,7 +11,7 @@ body {
   padding-top: 10vh;
 }
 header {
-  background-color: rgb(75, 172, 56);
+  background-color: rgb(22, 134, 0);
   position: fixed;
   width: 100%;
   top: 0;
