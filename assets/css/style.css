@@ -1,0 +1,23 @@
+body {
+    margin: 0;
+    padding-top: 3vh;
+}
+header {
+    text-align: center;
+}
+header h1 {
+    margin-bottom: 5vh;
+    font-size: 2em;
+}
+main {
+    width: 75vw;
+    margin: 0 auto 0 auto;
+}
+.listeCriteres {
+    margin: 0;   
+}
+.listeCriteres p {
+    width: 60vw;
+    margin: auto;
+    margin-bottom: 1vh;
+}
