@@ -79,8 +79,12 @@ xhr.onload = function () {
     function updateCounters() {
       const conformeCounter = document.getElementById("conforme-counter");
       const enCoursCounter = document.getElementById("en-cours-counter");
-      const nonConformeCounter = document.getElementById("non-conforme-counter");
-      const nonApplicableCounter = document.getElementById("non-applicable-counter");
+      const nonConformeCounter = document.getElementById(
+        "non-conforme-counter"
+      );
+      const nonApplicableCounter = document.getElementById(
+        "non-applicable-counter"
+      );
       const aDefinirCounter = document.getElementById("a-definir-counter");
 
       // Compter les états
@@ -133,9 +137,91 @@ xhr.onload = function () {
       });
     });
 
+    document
+      .getElementById("exportButton")
+      .addEventListener("click", exportToPDF);
+
+    function exportToPDF() {
+      const pdf = new jsPDF();
+
+      // Ajouter le titre du PDF
+      pdf.text(
+        "Liste des critères d'écoconception de services numériques",
+        20,
+        10
+      );
+
+      // Ajouter le numéro d'équipe
+      pdf.text("Numéro d'équipe: 22", 20, 20);
+
+      // Ajouter les critères
+      const critereElements = document.querySelectorAll(
+        "#table-container tbody tr"
+      );
+      let yOffset = 30; // Décalage en Y pour commencer sous le titre et le numéro d'équipe
+
+      critereElements.forEach((critereElement) => {
+        const theme =
+          critereElement.querySelector("td:first-child").textContent;
+        const critere =
+          critereElement.querySelector("td:nth-child(2)").textContent;
+        const etat = critereElement.querySelector("select").value;
+        // Utiliser splitTextToSize pour gérer le texte sur plusieurs lignes
+        const maxWidth = pdf.internal.pageSize.width - 40; // Largeur disponible
+        const splitText = pdf.splitTextToSize(
+          `${theme} - ${critere}: ${etat}`,
+          maxWidth
+        );
+
+        // Si le texte dépasse la hauteur de la page, ajouter une nouvelle page
+        if (yOffset + splitText.length * 10 > pdf.internal.pageSize.height) {
+          pdf.addPage(); // Passer à une nouvelle page
+          yOffset = 10; // Réinitialiser le décalage en Y
+        }
+
+        // Ajouter le texte sur plusieurs lignes
+        splitText.forEach((line) => {
+          pdf.text(line, 20, yOffset);
+          yOffset += 10; // Augmenter le décalage pour la prochaine ligne
+        });
+      });
+
+      // Enregistrer le PDF
+      pdf.save("exported_text.pdf");
+
+      function calculateConformityScore() {
+        const totalCriteria = data.criteres.length;
+        const nonApplicableCriteriaCount = Object.values(etats).filter(
+          (etat) => etat === "non applicable"
+        ).length;
+        const conformCriteriaCount = Object.values(etats).filter(
+          (etat) => etat === "conforme"
+        ).length;
+
+        // Calculer le score de conformité
+        const conformityScore =
+          conformCriteriaCount / (totalCriteria - nonApplicableCriteriaCount);
+
+        return isNaN(conformityScore) ? 0 : conformityScore; // Retourner 0 si le score est NaN
+      }
+      function updateCounters() {
+        // ... (le reste du code)
+
+        // Calculer le score de conformité
+        const conformityScore = calculateConformityScore();
+
+        // Afficher le score dans un élément avec l'id "conformity-score"
+        const conformityScoreElement =
+          document.getElementById("conformity-score");
+        if (conformityScoreElement) {
+          conformityScoreElement.textContent = `Score de conformité : ${(
+            conformityScore * 100
+          ).toFixed(2)}%`;
+        }
+      }
+    }
     // Mettre à jour les compteurs initiaux
     updateCounters();
   }
-  
 };
 xhr.send();
