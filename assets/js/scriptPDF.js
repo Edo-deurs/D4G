@@ -1,23 +1,30 @@
 document.getElementById("exportButton").addEventListener("click", exportToPDF);
 
 function exportToPDF() {
-    const pdf = new jsPDF();
+  const pdf = new jsPDF();
 
-    // Sélectionnez tous les critères dans la liste
-    const allCriteria = document.querySelectorAll('.listeCriteres li');
+  // Ajouter le titre du PDF
+  pdf.text("Liste des critères d'écoconception de services numériques", 20, 10);
 
-    // Définissez la position initiale pour le texte dans le PDF
-    let yPos = 10;
+  // Ajouter le numéro d'équipe
+  pdf.text("Numéro d'équipe: 22", 20, 20);
 
-    // Ajoutez chaque critère au PDF
-    allCriteria.forEach(critere => {
-        // Ajoutez le texte du critère au PDF
-        pdf.text(20, yPos, critere.textContent);
+  // Ajouter les critères
+  const critereElements = document.querySelectorAll(
+    "#table-container tbody tr"
+  );
+  let yOffset = 30; // Décalage en Y pour commencer sous le titre et le numéro d'équipe
 
-        // Incrémentez la position Y pour le prochain critère
-        yPos += 10;
-    });
+  critereElements.forEach((critereElement) => {
+    const theme = critereElement.querySelector("td:first-child").textContent;
+    const critere = critereElement.querySelector("td:nth-child(2)").textContent;
+    const etat = critereElement.querySelector("select").value;
 
-    // Enregistrez le PDF avec un nom de fichier spécifié
-    pdf.save('exported_criteria.pdf');
+    const critereText = `${theme} - ${critere}: ${etat}`;
+    pdf.text(critereText, 20, yOffset);
+    yOffset += 10; // Augmenter le décalage pour le prochain critère
+  });
+
+  // Enregistrer le PDF
+  pdf.save("exported_text.pdf");
 }
