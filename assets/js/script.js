@@ -223,5 +223,62 @@ xhr.onload = function () {
     // Mettre à jour les compteurs initiaux
     updateCounters();
   }
+  function saveProgress() {
+    const selectedTheme = themeFilter.value;
+    const selectedState = stateFilter.value;
+    const scrollPosition = window.scrollY;
+
+    const progress = {
+      theme: selectedTheme,
+      state: selectedState,
+      scroll: scrollPosition,
+    };
+
+    // Enregistrer la progression dans l'URL
+    const url = new URL(window.location);
+    url.searchParams.set("progress", JSON.stringify(progress));
+    history.pushState({}, "", url);
+
+    // Enregistrer la progression dans le stockage local
+    localStorage.setItem("progress", JSON.stringify(progress));
+  }
+  function loadProgress() {
+    const savedProgress = localStorage.getItem("progress");
+
+    if (savedProgress) {
+      const progress = JSON.parse(savedProgress);
+
+      themeFilter.value = progress.theme;
+      stateFilter.value = progress.state;
+      window.scrollTo(0, progress.scroll);
+
+      filterCriteria();
+    } else {
+      // Charger la progression à partir de l'URL si elle est présente
+      const url = new URL(window.location);
+      const progressString = url.searchParams.get("progress");
+      if (progressString) {
+        const progress = JSON.parse(progressString);
+
+        themeFilter.value = progress.theme;
+        stateFilter.value = progress.state;
+        window.scrollTo(0, progress.scroll);
+
+        filterCriteria();
+      }
+    }
+  }
+
+  themeFilter.addEventListener("change", function () {
+    filterCriteria();
+    saveProgress();
+  });
+
+  stateFilter.addEventListener("change", function () {
+    filterCriteria();
+    saveProgress();
+  });
+  window.addEventListener("load", loadProgress);
 };
+
 xhr.send();
