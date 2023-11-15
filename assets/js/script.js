@@ -79,12 +79,8 @@ xhr.onload = function () {
     function updateCounters() {
       const conformeCounter = document.getElementById("conforme-counter");
       const enCoursCounter = document.getElementById("en-cours-counter");
-      const nonConformeCounter = document.getElementById(
-        "non-conforme-counter"
-      );
-      const nonApplicableCounter = document.getElementById(
-        "non-applicable-counter"
-      );
+      const nonConformeCounter = document.getElementById("non-conforme-counter");
+      const nonApplicableCounter = document.getElementById("non-applicable-counter");
       const aDefinirCounter = document.getElementById("a-definir-counter");
 
       // Compter les états
@@ -140,5 +136,6 @@ xhr.onload = function () {
     // Mettre à jour les compteurs initiaux
     updateCounters();
   }
+  
 };
 xhr.send();
