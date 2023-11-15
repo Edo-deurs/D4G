@@ -12,18 +12,6 @@
       <ul id="maListe"></ul>
     </main>
 
-    <script>
-      fetch("./assets/json/referentiel-general-ecoconception-version-v1.json")
-        .then((response) => response.json())
-        .then((data) => {
-          const liste = document.getElementById("maListe");
-
-          data.publications.forEach((item) => {
-            const li = document.createElement("li");
-            li.textContent = item.titre;
-            liste.appendChild(li);
-          });
-        });
-    </script>
+    <script src="./assets/js/script.js"></script>
   </body>
 </html>
