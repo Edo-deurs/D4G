@@ -7,6 +7,61 @@
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <title>Ma page HTML</title>
       <link rel="stylesheet" href="assets/css/style.css" />
+
+      <script src="assets/js/jsPDF-1.3.2/jspdf.js"></script>
+    </head>
+    <body>
+      <header>
+        <h1>Numéro d'équipe: 22</h1>
+      </header>
+      <button id="exportButton">Exporter en PDF</button>
+      <main>
+        <h1>Liste des critères d'écoconception de services numériques</h1>
+
+        <div id="table-container">
+          <div id="counter-container">
+            <p>États :</p>
+            <p>Conforme : <span id="conforme-counter">0</span></p>
+            <p>
+              En cours de déploiement : <span id="en-cours-counter">0</span>
+            </p>
+            <p>Non conforme : <span id="non-conforme-counter">0</span></p>
+            <p>Non applicable : <span id="non-applicable-counter">0</span></p>
+            <p>À définir : <span id="a-definir-counter">0</span></p>
+          </div>
+          <div id="filter-container">
+            <label for="theme-filter">Filtrer par thématique :</label>
+            <select id="theme-filter">
+              <option value="">Toutes les thématiques</option>
+            </select>
+            <label for="state-filter">Filtrer par état :</label>
+            <select id="state-filter">
+              <option value="">Tous les états</option>
+              <option value="conforme">Conforme</option>
+              <option value="en cours de déploiement">
+                En cours de déploiement
+              </option>
+              <option value="non conforme">Non conforme</option>
+              <option value="non applicable">Non applicable</option>
+              <option value="a definir">À définir</option>
+            </select>
+          </div>
+        </div>
+      </main>
+
+      <script src="./assets/js/script.js"></script>
+    </body>
+  </html>
+</html>
+<!DOCTYPE html>
+<html lang="fr">
+  <html>
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>Ma page HTML</title>
+      <link rel="stylesheet" href="assets/css/style.css" />
     </head>
     <body>
       <header>
