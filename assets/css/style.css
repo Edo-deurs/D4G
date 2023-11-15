@@ -1,22 +1,62 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: rgba(75, 172, 56, 0.8);
+  font-family: "Roboto", sans-serif;
+}
 body {
   margin: 0;
+  padding-top: 10vh;
 }
 header {
-  text-align: center;
-  margin: 5vh 0;
-}
-header h1 {
-  font-size: 2em;
+  background-color: rgb(75, 172, 56);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  & h1 {
+    font-size: 2em;
+    width: 60%;
+  }
+  & button {
+    width: 10vw;
+    height: 6vh;
+  }
+  & p {
+    margin-right: 2vw;
+    font-weight: bold;
+    font-size: 1.3em;
+  }
 }
 
 main {
   width: 90vw;
-  margin: 0 auto 0 auto;
+  margin: 0 auto 10vh auto;
+  background-color: rgba(206, 219, 208, 1);
+  & h1 {
+    text-align: center;
+  }
+}
+#counter-container {
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+  margin: 0 auto 3vh auto;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 table {
   border-collapse: collapse;
   width: 100%;
+}
+tr:hover {
+  background-color: rgb(230, 230, 230);
 }
 
 th,
@@ -26,5 +66,5 @@ td {
 }
 
 tr:not(:last-child) {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid rgb(150, 150, 150);
 }

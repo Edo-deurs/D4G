@@ -110,7 +110,7 @@ xhr.onload = function () {
       const scoreConformiteCount =
         (etatsCount["conforme"] || 0) /
         (totalCritereCount - (etatsCount["non applicable"] || 0));
-      scoreConformite.textContent = scoreConformiteCount.toFixed(2);
+      scoreConformite.textContent = scoreConformiteCount.toFixed(3) * 100 + "%";
     }
 
     // Mettre à jour le tableau en fonction des filtres
