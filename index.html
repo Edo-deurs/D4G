@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ma page HTML</title>
+  </head>
+  <body>
+    <header>
+      <h1>Numéro d'équipe: 22</h1>
+    </header>
+
+    <main>
+      <ul id="maListe"></ul>
+    </main>
+
+    <script>
+      fetch("./assets/json/referentiel-general-ecoconception-version-v1.json")
+        .then((response) => response.json())
+        .then((data) => {
+          const liste = document.getElementById("maListe");
+
+          data.publications.forEach((item) => {
+            const li = document.createElement("li");
+            li.textContent = item.titre;
+            liste.appendChild(li);
+          });
+        });
+    </script>
+  </body>
+</html>
