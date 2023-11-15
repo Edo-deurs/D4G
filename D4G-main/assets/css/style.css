@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+}
+header {
+  text-align: center;
+  margin: 5vh 0;
+}
+header h1 {
+  font-size: 2em;
+}
+
+main {
+  width: 90vw;
+  margin: 0 auto 0 auto;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+}
+
+tr:not(:last-child) {
+  border-bottom: 1px solid #ddd;
+}
