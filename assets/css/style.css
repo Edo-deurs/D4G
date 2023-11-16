@@ -36,7 +36,6 @@ header {
     font-size: 1.3em;
   }
 }
-
 main {
   width: 90vw;
   margin: 0 auto 10vh auto;
@@ -47,6 +46,20 @@ main {
     margin-bottom: 2.5vw;
   }
 }
+.urlSite {
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+  text-align: center;
+  & label {
+    font-size: 2em;
+  }
+}
+input[type="url"] {
+  width: 45%;
+  font-size: 2em;
+  border-radius: 8px;
+}
+
 #counter-container {
   width: 80%;
   display: flex;

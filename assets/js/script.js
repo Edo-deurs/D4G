@@ -21,6 +21,8 @@ xhr.onload = function () {
     const etats = {};
     let sortDirection = 1;
 
+    const scoreConformite = document.getElementById("conformity-score");
+
     function updateCounters() {
       const conformeCounter = document.getElementById("conforme-counter");
       const enCoursCounter = document.getElementById("en-cours-counter");
@@ -31,7 +33,6 @@ xhr.onload = function () {
         "non-applicable-counter"
       );
       const aDefinirCounter = document.getElementById("a-definir-counter");
-      const scoreConformite = document.getElementById("conformity-score");
 
       const etatsCount = Object.values(etats).reduce((count, etat) => {
         count[etat] = (count[etat] || 0) + 1;
@@ -172,6 +173,66 @@ xhr.onload = function () {
     table.appendChild(thead);
     table.appendChild(tbody);
     document.body.appendChild(table);
+
+    document
+      .getElementById("exportButton")
+      .addEventListener("click", exportToPDF);
+
+    function exportToPDF() {
+      const nomDuSite = document.getElementById("url").value;
+      const pdf = new window.jspdf.jsPDF();
+
+      pdf.text(
+        "Liste des critères d'écoconception de services numériques",
+        20,
+        10
+      );
+      pdf.text("Equipe 22", 20, 20);
+
+      // Configure le titre
+      pdf.setFontSize(16);
+      const titre = `Évaluation de Conformité - ${nomDuSite}`;
+      console.log("Titre:", titre);
+
+      // Ajoute la date actuelle sur la première page
+      const currentDate = new Date();
+      const formattedDate = currentDate.toLocaleDateString("fr-FR");
+      const dateText = `Date : ${formattedDate}`;
+      pdf.text(dateText, 20, 30);
+
+      // Récupère les données du tableau
+      const critereElements = document.querySelectorAll(
+        "#table-container tbody tr"
+      );
+
+      const tableData = [];
+      critereElements.forEach((critereElement) => {
+        const theme =
+          critereElement.querySelector("td:first-child").textContent;
+        const critere =
+          critereElement.querySelector("td:nth-child(2)").textContent;
+        const etat = critereElement.querySelector("select").value;
+
+        tableData.push([theme, critere, etat]);
+      });
+
+      // Configure les colonnes du tableau
+      const columns = ["Thème", "Critère", "État"];
+
+      // Ajoute le tableau avec les données
+      pdf.autoTable({
+        startY: 40,
+        head: [columns],
+        body: tableData,
+      });
+      pdf.text(
+        `Score de Conformité : ${scoreConformite}`,
+        pdf.internal.pageSize.width - 60,
+        10
+      );
+
+      pdf.save("exported_text.pdf");
+    }
 
     // Ajouter le tableau au DOM
     table.appendChild(thead);

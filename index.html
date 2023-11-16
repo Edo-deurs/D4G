@@ -7,6 +7,7 @@
     <title>Ma page HTML</title>
     <link rel="stylesheet" href="assets/css/style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
   </head>
   <body>
     <header>
@@ -14,10 +15,22 @@
       <h1>Equipe 22</h1>
       <div>
         <button id="exportButton">Exporter en PDF</button>
-        <button id="reinitialisation">Resmise à 0</button>
+        <button id="reinitialisation">Remise à 0</button>
       </div>
     </header>
     <main>
+      <div class="urlSite">
+        <form>
+          <label for="url">URL :</label>
+          <input
+            type="url"
+            name="url"
+            id="url"
+            placeholder="Entrez votre URL..."
+            required
+          />
+        </form>
+      </div>
       <h1>Liste des critères d'écoconception de services numériques</h1>
 
       <div id="table-container">
