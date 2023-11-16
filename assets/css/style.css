@@ -3,7 +3,7 @@
 }
 
 html {
-  font-family: "Roboto", sans-serif;
+  font-family: "Segoe UI", sans-serif;
 }
 body {
   margin: 0;
@@ -28,19 +28,19 @@ body {
   justify-content: center;
   display: flex;
   background-color: transparent;
-  & label {
-    font-size: 1em;
-  }
-  & input {
-    background-color: rgb(250, 250, 250);
-    width: 60%;
-    font-size: 1em;
-    border-radius: 8px;
-  }
-  & input::placeholder {
-    font-size: 0.7em;
-    text-align: center;
-  }
+}
+label {
+  font-size: 1em;
+}
+input {
+  background-color: rgb(250, 250, 250);
+  width: 60%;
+  font-size: 1em;
+  border-radius: 8px;
+}
+input::placeholder {
+  font-size: 0.7em;
+  text-align: center;
 }
 
 header {
@@ -53,61 +53,79 @@ header {
   justify-content: space-around;
   align-items: center;
   margin: 0;
-  & h1 {
-    font-size: 2em;
-  }
-  .butt {
-    display: flex;
-    justify-content: space-between;
-  }
-  & button {
-    width: 10vw;
-    height: 6vh;
-    background-color: rgb(254, 234, 161);
-    border: 1px solid black;
-    font-size: 1em;
-  }
-  & button:hover {
-    background-color: rgb(255, 251, 237);
-  }
-  & p {
-    font-weight: bold;
-    font-size: 1.3em;
-  }
+}
+h1 {
+  font-size: 2em;
 }
 .butt {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
+p {
+  font-weight: bold;
+  font-size: 1.3em;
+}
+button {
+  width: 10vw;
+  height: 6vh;
+  margin-right: 1vw;
+  background-color: rgb(254, 234, 161);
+  border: 1px solid black;
+  font-size: 1em;
+}
+button:hover {
+  background-color: rgb(255, 251, 237);
+}
+
 main {
   width: 90vw;
   margin: 0 auto 10vh auto;
   background-color: rgb(236, 248, 246);
   padding-top: 1vw;
-  & h1 {
-    text-align: center;
-    margin-bottom: 2.5vw;
-  }
 }
+h1 {
+  text-align: center;
+}
+/*#counter-container {
+  width: 80%;
+  background-color: white;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+  margin: auto;
+  display: flex;
+}
+.resp1 {
+  display: flex;
+}*/
 
 #counter-container {
-  width: 80%;
+  width: 90%;
   display: flex;
-  justify-content: space-around;
-  margin: 0 auto 3vh auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
   background-color: white;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
 }
-#filter-container {
-  text-align: center;
-  font-size: 1.3em;
-  margin-bottom: 5vh;
-  margin-top: 5vh;
+p {
+  margin: 10px;
 }
-select {
-  height: 3vh;
-  border-radius: 5px;
-  margin-right: 2vw;
-  font-size: 0.9em;
+
+
+
+
+
+
+
+
+#filter-container, .filtreHaut, .filtreBas, select {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto;
+  font-size: 1.1em;
 }
 #table-container {
   padding-bottom: 6vh;
@@ -129,7 +147,18 @@ thead th {
 tbody tr:hover {
   background-color: white;
 }
-
+.column1 {
+  width: 10%; 
+}
+.column2 {
+  width: 60%;
+}
+.column3 {
+  width: 30%;
+}
+.column3 select {
+  width: 100%;
+}
 th,
 td {
   padding: 8px;
@@ -160,3 +189,38 @@ td option[value="a definir"] {
 tr:not(:last-child) {
   border-bottom: 1px solid rgb(150, 150, 150);
 }
+ 
+
+
+
+
+/*----------------------------------------------*/
+
+
+
+.burger-icon span {
+  display: block;
+  width: 35px;
+  height: 5px;
+  background-color: white;
+  margin: 6px 0;
+}
+
+
+
+
+
+/* partie responsive*/
+
+
+@media screen and (max-width: 980px) {
+  #filter-container {
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 500px) {
+  .filtreHaut, .filtreBas {
+    flex-direction: column;
+  }
+}
+

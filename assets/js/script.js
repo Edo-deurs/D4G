@@ -1,32 +1,30 @@
 const xhr = new XMLHttpRequest();
-const tabVal = {};
+var tabVal = {};
 xhr.open(
   "GET",
   "./assets/json/referentiel-general-ecoconception-version-v1.json"
 );
-// Fonction pour enregistrer des données dans sessionStorage
-function enregistrerDansSessionStorage(cle, valeur) {
-  sessionStorage.setItem(cle, JSON.stringify(valeur));
-}
 
-// Fonction pour récupérer des données depuis sessionStorage
-function recupererDepuisSessionStorage(cle) {
-  const valeur = sessionStorage.getItem(cle);
-  return JSON.parse(valeur);
-}
 
 // Fonction pour enregistrer des données dans localStorage
-function enregistrerDansLocalStorage(cle, valeur) {
+function saveTemp(cle, valeur) {
   console.log("here");
+  tabVal = tabVal || {}; 
   tabVal[cle] = valeur;
-  localStorage.setItem("etats", JSON.stringify(tabval));
+  localStorage.setItem("etats", JSON.stringify(tabVal));
 }
 
 // Fonction pour récupérer des données depuis localStorage
-function recupererDepuisLocalStorage(cle) {
+function loadLocalStorage(cle) {
   const valeur = localStorage.getItem("etats");
   return JSON.parse(valeur);
 }
+const clearLocalStorageBtn = document.getElementById('clear-localstorage');
+
+clearLocalStorageBtn.addEventListener('click', function() {
+  localStorage.clear();
+  alert('localStorage has been cleared!');
+});
 
 xhr.onload = function () {
   if (xhr.status === 200) {
@@ -96,19 +94,24 @@ xhr.onload = function () {
         const tdEtat = document.createElement("td");
         const select = document.createElement("select");
         select.name = `select-${critere.id}`;
-        // modif Clem
-        //
         selectOptions.forEach((option) => {
           const optionEl = document.createElement("option");
           optionEl.value = option;
           optionEl.textContent = option;
           select.appendChild(optionEl);
         });
-        select.value = etats[critere.id] ?? "a definir";
+        select.critereId = critere.id;
+        select.value = tabVal==null?"a definir":tabVal[critere.id] ;
         select.addEventListener("change", (e) => {
+          console.log(e);
           critere.etat = select.value;
           etats[critere.id] = e.target.value;
           updateCounters();
+          saveTemp(
+            select.critereId,
+            //document.querySelector("#test").name.replace(/select-/g, ""),
+            etats[critere.id]
+          );
         });
         tdEtat.appendChild(select);
         row.appendChild(tdEtat);
@@ -129,8 +132,10 @@ xhr.onload = function () {
     }
 
     // Créer les en-têtes du tableau
+    tabVal = loadLocalStorage();
     const headerRow = document.createElement("tr");
     const thTheme = document.createElement("th");
+    thTheme.className = "column1";
     thTheme.textContent = "Thématique";
     thTheme.addEventListener("click", () => {
       data.criteres.sort((a, b) => a.thematique.localeCompare(b.thematique));
@@ -138,6 +143,7 @@ xhr.onload = function () {
     });
     headerRow.appendChild(thTheme);
     const thCritere = document.createElement("th");
+    thCritere.className = "column2";
     thCritere.textContent = "Critère";
     thCritere.addEventListener("click", () => {
       data.criteres.sort((a, b) => a.critere.localeCompare(b.critere));
@@ -145,6 +151,7 @@ xhr.onload = function () {
     });
     headerRow.appendChild(thCritere);
     const thEtat = document.createElement("th");
+    thEtat.className = "column3";
     thEtat.textContent = "État";
     thEtat.addEventListener("click", () => {
       data.criteres.sort((a, b) => {
@@ -166,12 +173,15 @@ xhr.onload = function () {
     data.criteres.forEach((critere) => {
       const row = document.createElement("tr");
       const tdTheme = document.createElement("td");
+      tdTheme.className = "column1";
       tdTheme.textContent = critere.thematique;
       row.appendChild(tdTheme);
       const tdCritere = document.createElement("td");
+      tdCritere.className = "column2";
       tdCritere.textContent = critere.critere;
       row.appendChild(tdCritere);
       const tdEtat = document.createElement("td");
+      tdEtat.className = "column3";
       const select = document.createElement("select");
       select.name = `select-${critere.id}`;
 
@@ -182,11 +192,17 @@ xhr.onload = function () {
         if (optionEl.value == etats[critere.id]) optionEl.selected = true;
         select.appendChild(optionEl);
       });
-      select.value = "a definir";
-      select.addEventListener("change", () => {
+      select.value = tabVal==null?"a definir":tabVal[critere.id] ;
+      select.critereId = critere.id;
+      select.addEventListener("change", (e) => {
         etats[critere.id] = select.value;
         updateCounters();
         updateTable();
+        saveTemp(
+          select.critereId,
+          //document.querySelector("#test").name.replace(/select-/g, ""),
+          e.target.value
+        );
       });
       tdEtat.appendChild(select);
       row.appendChild(tdEtat);

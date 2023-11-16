@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Ma page HTML</title>
+    <title>Equipe-22</title>
     <link rel="stylesheet" href="assets/css/style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
@@ -32,10 +32,22 @@
       <h1>Equipe 22</h1>
       <div class="butt">
         <button id="exportButton">Exporter en PDF</button>
-        <button id="reinitialisation" onclick="enregistrerDansLocalStorage()">
-          Remise à 0
-        </button>
+        <button id="clear-localstorage">Clear localStorage</button>
       </div>
+      <div id="mySidenav" class="sidenav">
+        <a id="closeBtn" href="#" class="close">×</a>
+        <ul>
+          <button id="exportButton">Exporter en PDF</button>
+          <button id="clear-localstorage">Clear localStorage</button>
+        </ul>
+      </div>
+      <a href="#" id="openBtn">
+        <span class="burger-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </a>
     </header>
     <main>
       <h1>Liste des critères d'écoconception de services numériques</h1>
@@ -53,6 +65,17 @@
       </div>
       <div id="table-container">
         <div id="counter-container">
+          <!--<div class="resp1">
+            <p>Conforme : <span id="conforme-counter">0</span></p>
+            <p>En cours de déploiement : <span id="en-cours-counter">0</span></p>
+          </div>
+          <div class="resp2">
+            <p>Non conforme : <span id="non-conforme-counter">0</span></p>
+            <p>Non applicable : <span id="non-applicable-counter">0</span></p>
+          </div>
+          <div class="resp3">
+            <p>À définir : <span id="a-definir-counter">0</span></p>
+          </div>-->
           <p>Conforme : <span id="conforme-counter">0</span></p>
           <p>En cours de déploiement : <span id="en-cours-counter">0</span></p>
           <p>Non conforme : <span id="non-conforme-counter">0</span></p>
@@ -60,21 +83,25 @@
           <p>À définir : <span id="a-definir-counter">0</span></p>
         </div>
         <div id="filter-container">
-          <label for="theme-filter">Filtrer par thématique :</label>
-          <select class="select" id="theme-filter">
-            <option value="">Toutes les thématiques</option>
-          </select>
-          <label for="state-filter">Filtrer par état :</label>
-          <select class="select" id="state-filter">
-            <option value="">Tous les états</option>
-            <option value="conforme">Conforme</option>
-            <option value="en cours de déploiement">
-              En cours de déploiement
-            </option>
-            <option value="non conforme">Non conforme</option>
-            <option value="non applicable">Non applicable</option>
-            <option value="a definir">À définir</option>
-          </select>
+          <div class="filtreHaut">
+            <label for="theme-filter">Filtrer par thématique :</label>
+            <select class="select" id="theme-filter">
+              <option value="">Toutes les thématiques</option>
+            </select>
+          </div>
+          <div class="filtreBas">
+            <label for="state-filter">Filtrer par état :</label>
+            <select class="select" id="state-filter">
+              <option value="">Tous les états</option>
+              <option value="conforme">Conforme</option>
+              <option value="en cours de déploiement">
+                En cours de déploiement
+              </option>
+              <option value="non conforme">Non conforme</option>
+              <option value="non applicable">Non applicable</option>
+              <option value="a definir">À définir</option>
+            </select>
+          </div>
         </div>
       </div>
     </main>
