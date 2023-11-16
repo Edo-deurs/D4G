@@ -3,7 +3,7 @@
 }
 
 html {
-  background-color: rgba(16, 92, 0, 0.8);
+  background-color: rgb(138, 201, 171);
   font-family: "Roboto", sans-serif;
 }
 body {
@@ -11,24 +11,27 @@ body {
   padding-top: 10vh;
 }
 header {
-  background-color: rgb(22, 134, 0);
+  background-color: rgb(76, 173, 116);
   position: fixed;
   width: 100%;
   top: 0;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   margin: 0;
   & h1 {
     font-size: 2em;
-    width: 60%;
   }
   & button {
     width: 10vw;
     height: 6vh;
+    background-color: rgb(76, 173, 116);
+    border: 2px solid black;
+  }
+  & button:hover {
+    background-color: rgb(125, 189, 151);
   }
   & p {
-    margin-right: 2vw;
     font-weight: bold;
     font-size: 1.3em;
   }
@@ -37,9 +40,11 @@ header {
 main {
   width: 90vw;
   margin: 0 auto 10vh auto;
-  background-color: rgba(206, 219, 208, 1);
+  background-color: rgb(230, 230, 230);
+  padding-top: 1vw;
   & h1 {
     text-align: center;
+    margin-bottom: 2.5vw;
   }
 }
 #counter-container {
@@ -48,7 +53,18 @@ main {
   justify-content: space-around;
   margin: 0 auto 3vh auto;
   background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+}
+#filter-container {
+  text-align: center;
+  font-size: 1.3em;
+  margin-bottom: 3vh;
+  margin-top: 5vh;
+}
+select {
+  height: 3vh;
+  border-radius: 5px;
+  margin-right: 2vw;
 }
 
 table {
