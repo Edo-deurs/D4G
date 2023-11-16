@@ -1,8 +1,33 @@
 const xhr = new XMLHttpRequest();
+const tabVal = {};
 xhr.open(
   "GET",
   "./assets/json/referentiel-general-ecoconception-version-v1.json"
 );
+// Fonction pour enregistrer des données dans sessionStorage
+function enregistrerDansSessionStorage(cle, valeur) {
+  sessionStorage.setItem(cle, JSON.stringify(valeur));
+}
+
+// Fonction pour récupérer des données depuis sessionStorage
+function recupererDepuisSessionStorage(cle) {
+  const valeur = sessionStorage.getItem(cle);
+  return JSON.parse(valeur);
+}
+
+// Fonction pour enregistrer des données dans localStorage
+function enregistrerDansLocalStorage(cle, valeur) {
+  console.log("here");
+  tabVal[cle] = valeur;
+  localStorage.setItem("etats", JSON.stringify(tabval));
+}
+
+// Fonction pour récupérer des données depuis localStorage
+function recupererDepuisLocalStorage(cle) {
+  const valeur = localStorage.getItem("etats");
+  return JSON.parse(valeur);
+}
+
 xhr.onload = function () {
   if (xhr.status === 200) {
     const data = JSON.parse(xhr.responseText);
@@ -21,8 +46,6 @@ xhr.onload = function () {
     const etats = {};
     let sortDirection = 1;
 
-    const scoreConformite = document.getElementById("conformity-score");
-
     function updateCounters() {
       const conformeCounter = document.getElementById("conforme-counter");
       const enCoursCounter = document.getElementById("en-cours-counter");
@@ -33,6 +56,7 @@ xhr.onload = function () {
         "non-applicable-counter"
       );
       const aDefinirCounter = document.getElementById("a-definir-counter");
+      const scoreConformite = document.getElementById("conformity-score");
 
       const etatsCount = Object.values(etats).reduce((count, etat) => {
         count[etat] = (count[etat] || 0) + 1;
@@ -56,6 +80,7 @@ xhr.onload = function () {
         (etatsCount["conforme"] || 0) /
         (totalCritereCount - (etatsCount["non applicable"] || 0));
       scoreConformite.textContent = scoreConformiteCount.toFixed(2) * 100 + "%";
+      return scoreConformite.textContent;
     }
 
     function updateTable() {
@@ -71,13 +96,15 @@ xhr.onload = function () {
         const tdEtat = document.createElement("td");
         const select = document.createElement("select");
         select.name = `select-${critere.id}`;
+        // modif Clem
+        //
         selectOptions.forEach((option) => {
           const optionEl = document.createElement("option");
           optionEl.value = option;
           optionEl.textContent = option;
           select.appendChild(optionEl);
         });
-        select.value = critere.etat;
+        select.value = etats[critere.id] ?? "a definir";
         select.addEventListener("change", (e) => {
           critere.etat = select.value;
           etats[critere.id] = e.target.value;
@@ -147,10 +174,12 @@ xhr.onload = function () {
       const tdEtat = document.createElement("td");
       const select = document.createElement("select");
       select.name = `select-${critere.id}`;
+
       selectOptions.forEach((option) => {
         const optionEl = document.createElement("option");
         optionEl.value = option;
         optionEl.textContent = option;
+        if (optionEl.value == etats[critere.id]) optionEl.selected = true;
         select.appendChild(optionEl);
       });
       select.value = "a definir";
@@ -193,11 +222,19 @@ xhr.onload = function () {
       const titre = `Évaluation de Conformité - ${nomDuSite}`;
       console.log("Titre:", titre);
 
+      //recalculer score
+      const scoreConformite = updateCounters();
+
       // Ajoute la date actuelle sur la première page
       const currentDate = new Date();
       const formattedDate = currentDate.toLocaleDateString("fr-FR");
       const dateText = `Date : ${formattedDate}`;
       pdf.text(dateText, 20, 20);
+      pdf.text(
+        `Score de Conformité : ${scoreConformite}`,
+        pdf.internal.pageSize.width - 80,
+        20
+      );
 
       // Récupère les données du tableau
       const critereElements = document.querySelectorAll(
@@ -220,15 +257,10 @@ xhr.onload = function () {
 
       // Ajoute le tableau avec les données
       pdf.autoTable({
-        startY: 40,
+        startY: 30,
         head: [columns],
         body: tableData,
       });
-      pdf.text(
-        `Score de Conformité : ${scoreConformite}`,
-        pdf.internal.pageSize.width - 60,
-        10
-      );
 
       pdf.save("exported_text.pdf");
     }
