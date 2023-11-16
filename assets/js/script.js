@@ -187,7 +187,6 @@ xhr.onload = function () {
         20,
         10
       );
-      pdf.text("Equipe 22", 20, 20);
 
       // Configure le titre
       pdf.setFontSize(16);
@@ -198,7 +197,7 @@ xhr.onload = function () {
       const currentDate = new Date();
       const formattedDate = currentDate.toLocaleDateString("fr-FR");
       const dateText = `Date : ${formattedDate}`;
-      pdf.text(dateText, 20, 30);
+      pdf.text(dateText, 20, 20);
 
       // Récupère les données du tableau
       const critereElements = document.querySelectorAll(
