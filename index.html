@@ -4,12 +4,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Ceci est le site de l'équipe 22 pour l'édition n°7">
+    <meta
+      name="description"
+      content="Ceci est le site de l'équipe 22 pour l'édition n°7"
+    />
     <title>Equipe-22</title>
     <link rel="stylesheet" href="assets/css/style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
-    
   </head>
   <body>
     <!--<div class="accueil">
@@ -29,81 +31,76 @@
     </div>-->
     <header id="main-header">
       <h1>Equipe 22</h1>
-      <p>
-        <a href="https://ecoresponsable.numerique.gouv.fr/">Formulaire basé sur le RGESN</a>
-      </p>
-      
-      
+
       <h2>Evaluer votre site en notant les critères</h2>
       <div>
         <label for="url">Enter a Link:</label>
         <input
-            type="url"
-            name="url"
-            id="url"
-            placeholder="Entrez votre URL..."
-            required
-          />
+          type="url"
+          name="url"
+          id="url"
+          placeholder="Entrez votre URL..."
+          required
+        />
         <button id="submitUrl">Submit</button>
-    </div>
-      
+      </div>
     </header>
-  <section id="table-container" class="table-container">
-    <div id="debutPage">
-      <p>
-        <a href="https://ecoresponsable.numerique.gouv.fr/">Formulaire basé sur le RGESN</a>
-      </p>
-      <h1 >
-        Score de conformité : <span id="conformity-score">0</span>
-      </h1>
-      <h1>Equipe 22</h1>
-      <div class="butt">
-        <button id="exportButton" >Exporter en PDF</button>
-        <button id="clear-localstorage">Valeurs par défaut</button>
+    <section id="table-container" class="table-container">
+      <div id="debutPage">
+        <p>
+          <a href="https://ecoresponsable.numerique.gouv.fr/"
+            >Formulaire basé sur le RGESN</a
+          >
+        </p>
+        <h1>Score de conformité : <span id="conformity-score">0</span></h1>
+        <h1>Equipe 22</h1>
       </div>
-    </div>
-    <main>
-      <h1>Liste des critères d'écoconception de services numériques</h1>
-      <div class="urlSite">
-        <form>
-          <h1 id="displayedUrl">Url :</h1>
-          
-        </form>
-      </div>
-      <div id="table-container">
-        <div id="counter-container">
-          <h2>Conforme : <span id="conforme-counter">0</span></h2>
-          <h2>En cours de déploiement : <span id="en-cours-counter">0</span></h2>
-          <h2>Non conforme : <span id="non-conforme-counter">0</span></h2>
-          <h2>Non applicable : <span id="non-applicable-counter">0</span></h2>
-          <h2>À définir : <span id="a-definir-counter">0</span></h2>
+      <main>
+        <h1>Liste des critères d'écoconception de services numériques</h1>
+        <div class="urlSite">
+          <form>
+            <h1 id="displayedUrl">Url :</h1>
+          </form>
         </div>
-        <div id="filter-container">
-          <div class="filtreHaut">
-            <label for="theme-filter">Filtrer par thématique :</label>
-            <select class="select" id="theme-filter">
-              <option value="">Toutes les thématiques</option>
-            </select>
+        <div id="table-container">
+          <div id="counter-container">
+            <h2>Conforme : <span id="conforme-counter">0</span></h2>
+            <h2>
+              En cours de déploiement : <span id="en-cours-counter">0</span>
+            </h2>
+            <h2>Non conforme : <span id="non-conforme-counter">0</span></h2>
+            <h2>Non applicable : <span id="non-applicable-counter">0</span></h2>
+            <h2>À définir : <span id="a-definir-counter">0</span></h2>
           </div>
-          <div class="filtreBas">
-            <label for="state-filter">Filtrer par état : </label>
-            <select class="select" id="state-filter">
-              <option value="">Tous les états</option>
-              <option value="conforme">Conforme</option>
-              <option value="en cours de déploiement">
-                En cours de déploiement
-              </option>
-              <option value="non conforme">Non conforme</option>
-              <option value="non applicable">Non applicable</option>
-              <option value="a definir">À définir</option>
-            </select>
+          <div id="filter-container">
+            <div class="filtreHaut">
+              <label for="theme-filter">Filtrer par thématique :</label>
+              <select class="select" id="theme-filter">
+                <option value="">Toutes les thématiques</option>
+              </select>
+            </div>
+            <div class="filtreBas">
+              <label for="state-filter">Filtrer par état : </label>
+              <select class="select" id="state-filter">
+                <option value="">Tous les états</option>
+                <option value="conforme">Conforme</option>
+                <option value="en cours de déploiement">
+                  En cours de déploiement
+                </option>
+                <option value="non conforme">Non conforme</option>
+                <option value="non applicable">Non applicable</option>
+                <option value="a definir">À définir</option>
+              </select>
+            </div>
+            <div class="butt">
+              <button id="exportButton">Exporter en PDF</button>
+              <button id="clear-localstorage">Valeurs par défaut</button>
+            </div>
           </div>
         </div>
-      </div>
-    </main>
-    
-    <script src="./assets/js/script.js"></script>
-    
-  </section>
+      </main>
+
+      <script src="./assets/js/script.js"></script>
+    </section>
   </body>
 </html>
