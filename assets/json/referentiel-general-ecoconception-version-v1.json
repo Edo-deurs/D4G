@@ -687,7 +687,7 @@
     {
       "id": "8.9",
       "url": "https://ecoresponsable.numerique.gouv.fr/publications/referentiel-general-ecoconception/critere/8.9/",
-      "critere": "Le service numérique héberge-t-il de façon distincte les données « chaudes » et « froides » ?",
+      "critere": "Le service numérique héberge-t-il de façon distincte les données «chaudes» et «froides» ?",
       "thematique": "Hébergement",
       "objectif": "Les données chaudes sont des données très utilisées alors que les données froides sont des données archivées. Utiliser des hébergements différents (bases de données différentes par exemple) permettrait de réduire les impacts environnementaux.",
       "miseEnOeuvre": "Séparer les données chaudes des données froides en utilisant des solutions techniques adaptées au contexte d'utilisation.\nIl convient d'avoir une réflexion sur le mode de stockage des données froides : il existe plusieurs technologies sur le marché, toutes n'ont pas nécessairement le même impact.",

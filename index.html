@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="assets/css/style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+    
   </head>
   <body>
     <!--<div class="accueil">
@@ -25,62 +26,49 @@
         </form>
       </div>
     </div>-->
-    <header id="debutPage">
-      <p title="Ceci est un easter egg!">
-        Score de conformité : <span id="conformity-score">0</span>
-      </p>
+    <header id="main-header">
+      
       <h1>Equipe 22</h1>
-      <div class="butt">
-        <button id="exportButton">Exporter en PDF</button>
-        <button id="clear-localstorage">Clear localStorage</button>
-      </div>
-      <div id="mySidenav" class="sidenav">
-        <a id="closeBtn" href="#" class="close">×</a>
-        <ul>
-          <button id="exportButton">Exporter en PDF</button>
-          <button id="clear-localstorage">Clear localStorage</button>
-        </ul>
-      </div>
-      <a href="#" id="openBtn">
-        <span class="burger-icon">
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
-      </a>
-    </header>
-    <main>
-      <h1>Liste des critères d'écoconception de services numériques</h1>
-      <div class="urlSite">
-        <form>
-          <label for="url">URL :</label>
-          <input
+      <h2>Evaluer votre site en notant les critères</h2>
+      <div>
+        <label for="url">Enter a Link:</label>
+        <input
             type="url"
             name="url"
             id="url"
             placeholder="Entrez votre URL..."
             required
           />
+        <button id="submitUrl">Submit</button>
+    </div>
+      
+    </header>
+  <section id="table-container" class="table-container">
+    <div id="debutPage">
+      <h1 >
+        Score de conformité : <span id="conformity-score">0</span>
+      </h1>
+      <h1>Equipe 22</h1>
+      <div class="butt">
+        <button id="exportButton" >Exporter en PDF</button>
+        <button id="clear-localstorage">Valeurs par défaut</button>
+      </div>
+    </div>
+    <main>
+      <h1>Liste des critères d'écoconception de services numériques</h1>
+      <div class="urlSite">
+        <form>
+          <h1 id="displayedUrl"></h1>
+          
         </form>
       </div>
       <div id="table-container">
         <div id="counter-container">
-          <!--<div class="resp1">
-            <p>Conforme : <span id="conforme-counter">0</span></p>
-            <p>En cours de déploiement : <span id="en-cours-counter">0</span></p>
-          </div>
-          <div class="resp2">
-            <p>Non conforme : <span id="non-conforme-counter">0</span></p>
-            <p>Non applicable : <span id="non-applicable-counter">0</span></p>
-          </div>
-          <div class="resp3">
-            <p>À définir : <span id="a-definir-counter">0</span></p>
-          </div>-->
-          <p>Conforme : <span id="conforme-counter">0</span></p>
-          <p>En cours de déploiement : <span id="en-cours-counter">0</span></p>
-          <p>Non conforme : <span id="non-conforme-counter">0</span></p>
-          <p>Non applicable : <span id="non-applicable-counter">0</span></p>
-          <p>À définir : <span id="a-definir-counter">0</span></p>
+          <h2>Conforme : <span id="conforme-counter">0</span></h2>
+          <h2>En cours de déploiement : <span id="en-cours-counter">0</span></h2>
+          <h2>Non conforme : <span id="non-conforme-counter">0</span></h2>
+          <h2>Non applicable : <span id="non-applicable-counter">0</span></h2>
+          <h2>À définir : <span id="a-definir-counter">0</span></h2>
         </div>
         <div id="filter-container">
           <div class="filtreHaut">
@@ -90,7 +78,7 @@
             </select>
           </div>
           <div class="filtreBas">
-            <label for="state-filter">Filtrer par état :</label>
+            <label for="state-filter">Filtrer par état : </label>
             <select class="select" id="state-filter">
               <option value="">Tous les états</option>
               <option value="conforme">Conforme</option>
@@ -106,5 +94,6 @@
       </div>
     </main>
     <script src="./assets/js/script.js"></script>
+  </section>
   </body>
 </html>
