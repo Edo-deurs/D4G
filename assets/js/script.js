@@ -91,56 +91,51 @@ function updateCounters() {
   return scoreConformite.textContent;
 }
 
+function updateTable() {
+  const existingStates = loadLocalStorage() || {};
+  tbody.innerHTML = "";
+  data.criteres.forEach((critere) => {
+    const row = document.createElement("tr");
+    const tdTheme = document.createElement("td");
+    tdTheme.textContent = critere.thematique;
+    row.appendChild(tdTheme);
+    const tdCritere = document.createElement("td");
+    tdCritere.textContent = critere.critere;
+    row.appendChild(tdCritere);
+    const tdEtat = document.createElement("td");
+    const select = document.createElement("select");
+    select.name = `select-${critere.id}`;
+    selectOptions.forEach((option) => {
+      const optionEl = document.createElement("option");
+      optionEl.value = option;
+      optionEl.textContent = option;
+      select.appendChild(optionEl);
+    });
+    select.critereId = critere.id;
+    select.value = existingStates[critere.id] || "a definir";
+    select.addEventListener("change", (e) => {
+      etats[critere.id] = e.target.value;
+      updateCounters();
+      saveTemp(select.critereId, e.target.value);
+    });
+    tdEtat.appendChild(select);
+    row.appendChild(tdEtat);
+    tbody.appendChild(row);
+  });
+  tbody.querySelectorAll("tr").forEach((row) => {
+    const themeFilterValue = themeFilter.value.toLowerCase();
+    const stateFilterValue = stateFilter.value.toLowerCase();
+    const themeMatch =
+      themeFilterValue === "" ||
+      row.querySelector("td:first-child").textContent.toLowerCase() ===
+        themeFilterValue;
+    const stateMatch =
+      stateFilterValue === "" ||
+      row.querySelector("select").value.toLowerCase() === stateFilterValue;
+    row.style.display = themeMatch && stateMatch ? "table-row" : "none";
+  });
+}
 
-    function updateTable() {
-      tbody.innerHTML = "";
-      data.criteres.forEach((critere) => {
-        const row = document.createElement("tr");
-        const tdTheme = document.createElement("td");
-        tdTheme.textContent = critere.thematique;
-        row.appendChild(tdTheme);
-        const tdCritere = document.createElement("td");
-        tdCritere.textContent = critere.critere;
-        row.appendChild(tdCritere);
-        const tdEtat = document.createElement("td");
-        const select = document.createElement("select");
-        select.name = `select-${critere.id}`;
-        selectOptions.forEach((option) => {
-          const optionEl = document.createElement("option");
-          optionEl.value = option;
-          optionEl.textContent = option;
-          select.appendChild(optionEl);
-        });
-        select.critereId = critere.id;
-        select.value = tabVal==null?"a definir":tabVal[critere.id] ;
-        select.addEventListener("change", (e) => {
-          console.log(e);
-          critere.etat = select.value;
-          etats[critere.id] = e.target.value;
-          updateCounters();
-          
-          saveTemp(
-            select.critereId,
-            etats[critere.id]
-          );
-        });
-        tdEtat.appendChild(select);
-        row.appendChild(tdEtat);
-        tbody.appendChild(row);
-      });
-      tbody.querySelectorAll("tr").forEach((row) => {
-        const themeFilterValue = themeFilter.value.toLowerCase();
-        const stateFilterValue = stateFilter.value.toLowerCase();
-        const themeMatch =
-          themeFilterValue === "" ||
-          row.querySelector("td:first-child").textContent.toLowerCase() ===
-            themeFilterValue;
-        const stateMatch =
-          stateFilterValue === "" ||
-          row.querySelector("select").value.toLowerCase() === stateFilterValue;
-        row.style.display = themeMatch && stateMatch ? "table-row" : "none";
-      });
-    }
 
     // Créer les en-têtes du tableau
     etats = loadLocalStorage();
@@ -229,6 +224,8 @@ function updateCounters() {
     table.appendChild(thead);
     table.appendChild(tbody);
     document.body.appendChild(table);
+    updateTable();
+    updateCounters();
 
     document
       .getElementById("exportButton")
