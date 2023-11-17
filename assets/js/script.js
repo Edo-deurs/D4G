@@ -118,6 +118,7 @@ function updateCounters() {
           critere.etat = select.value;
           etats[critere.id] = e.target.value;
           updateCounters();
+          
           saveTemp(
             select.critereId,
             etats[critere.id]
